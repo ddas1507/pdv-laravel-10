@@ -16,7 +16,7 @@ return [
     |
     */
 
-    'name' => env('APP_NAME', 'PDV Laravel'),
+    'name' => env('APP_NAME', 'PDVLaravel'),
 
     /*
     |--------------------------------------------------------------------------
@@ -55,7 +55,7 @@ return [
     |
     */
 
-    'url' => env('APP_URL', 'http://localhost'),
+    'url' => env('APP_URL', 'http://localhost:8989'),
 
     'asset_url' => env('ASSET_URL'),
 
@@ -70,7 +70,7 @@ return [
     |
     */
 
-    'timezone' => 'UTC',
+    'timezone' => 'America/Sao_Paulo',
 
     /*
     |--------------------------------------------------------------------------
