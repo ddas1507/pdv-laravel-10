@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\StoreUpdateProduct;
+use App\Http\Requests\ProductUpdateRequest;
 use App\Models\Product;
 use Illuminate\Http\Request;
 
@@ -15,7 +15,6 @@ class ProductController extends Controller
     public function index(Product $product)
     {
         $products = $product->all();
-        //dd($products);
         return view('admin.products.index', compact('products'));
     }
 
@@ -30,10 +29,10 @@ class ProductController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(StoreUpdateProduct $storeUpdateProduct, Request $request, Product $product)
+    public function store(ProductUpdateRequest $productUpdateRequest, Request $request, Product $product)
     {
         $data = $request->validated();
-        $data['status'] = isset($data['status']) ? 1 : 0;
+        $data['status'] = isset($data['status']) ? 'ativo' : 'inativo';
 
         $product = $product::create($data);
         return redirect()->route('products.index');
@@ -53,9 +52,6 @@ class ProductController extends Controller
         }
 
         return view('admin.products.show', compact('product'));
-
-
-        //
     }
 
     /**
@@ -73,16 +69,15 @@ class ProductController extends Controller
 
     }
 
-    /**
-     * Update the specified resource in storage.
-     */
-
-    public function update(StoreUpdateProduct $storeUpdateProduct, Request $request, string|int $product)
+    public function update(Request $request, string|int $product)
     {
         if(!$product = Product::find($product)){
             return redirect()->route('products.index');
         }
-        $product->update($request->validated());
+        $data = $request->all();
+        $data['status'] = isset($data['status']) ? 'ativo' : 'inativo';
+        $product->update($data);
+
         return redirect()->route('products.index');
     }
 
